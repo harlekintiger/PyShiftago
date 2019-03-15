@@ -8,7 +8,7 @@ while not exit_program:
 
     game.initialize()
 
-    while game.compute_loop():
+    while game.compute_turn_loop():
         roundCount += 1
 
     print("GAME ENDED")
@@ -20,3 +20,5 @@ while not exit_program:
         if inp == "y":
             break
 
+
+# Attention!! Run model for AI

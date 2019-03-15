@@ -89,6 +89,8 @@ def initialize():
         [0, 0, 0, 0, 0, 0, 0]
     ]
 
+    return board
+
 
 def test_for_valid_move(input_variation):
     xStart = input_variations[input_variation].xStart
@@ -122,6 +124,7 @@ def insert_marble(new_marble, input_variation):
 
 
 def check_for_points(color):
+    max_occurrence_counter = 0
     remaining_zeros = 0
 
     copy_board_to_temp_board()
@@ -144,6 +147,8 @@ def check_for_points(color):
             curr_row[i] = temp_board[curr_variation.xStart + i * curr_variation.xDir][curr_variation.yStart + i * curr_variation.yDir]
             if curr_row[i] == 1:
                 occurrence_counter += 1
+                if occurrence_counter > max_occurrence_counter:
+                    max_occurrence_counter = occurrence_counter
             else:
                 if occurrence_counter < min_scorable_row_length:
                     occurrence_counter = 0
@@ -173,16 +178,16 @@ def check_for_points(color):
 
         # </ removing middle marbles>
 
-        return PointCheckReturn(False, points_for_length[occurrence_counter])
+        return PointCheckReturn(False, points_for_length[occurrence_counter]), max_occurrence_counter
 
     if remaining_zeros < 4:
         for y in range(board_dimension):
             for x in range(board_dimension):
                 if board[x][y] == 0:
-                    return PointCheckReturn(False, 0)
-        return PointCheckReturn(True, 0)
+                    return PointCheckReturn(False, 0), max_occurrence_counter
+        return PointCheckReturn(True, 0), max_occurrence_counter
 
-    return PointCheckReturn(False, 0)
+    return PointCheckReturn(False, 0), max_occurrence_counter
 
 
 def copy_board_to_temp_board():
@@ -191,6 +196,16 @@ def copy_board_to_temp_board():
     for y in range(board_dimension):
         for x in range(board_dimension):
             temp_board[x][y] = board[x][y]
+
+
+def get_list_of_legal_moves():
+    list_of_legal_moves = []
+    for i in range(0, board_dimension * 4):
+        if test_for_valid_move(i):
+            list_of_legal_moves.append(1)
+        else:
+            list_of_legal_moves.append(0)
+    return list_of_legal_moves
 
 
 def draw_board():

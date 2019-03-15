@@ -23,14 +23,13 @@ def turn():
         if not board.test_for_valid_move(rnd_move):
             continue
 
-        print(rnd_move)
-        print()
-        print()
+        #print("Rndp:", rnd_move)
+        #print()
 
         board.insert_marble(color, rnd_move)
         break
 
-    point_check_return = board.check_for_points(color)
+    point_check_return, _ = board.check_for_points(color)
     global score
     score += int(point_check_return.scoredPoints)
     if point_check_return.isDraw:

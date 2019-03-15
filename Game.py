@@ -1,5 +1,5 @@
 import Board as board
-import HumanPlayer as humanPlayer
+import KerasPlayer as kerasPlayer
 import RandomPlayer as randomPlayer
 
 points_to_win = 10
@@ -11,39 +11,56 @@ players = [None, None]
 def initialize(show_game_in_console = True):
     global players
     players = [
-        humanPlayer,
+        kerasPlayer,
         randomPlayer
     ]
     for ind, play in enumerate(players, start=1):
         play.initialize(ind)
 
-    board.initialize()
-
     global show_in_console
     show_in_console = show_game_in_console
 
+    return board.initialize()
 
-def compute_loop():
-    for player in players:
 
-        if show_in_console:
-            set_up()
+def compute_turn_loop(turn_to_make):
+    # keras turn
 
-        turn_result = player.turn()
+    if show_in_console:
+        set_up()
 
-        if turn_result == 0:
-            continue
+    turn_result, keras_feedback = kerasPlayer.turn(turn_to_make)
+
+    if not turn_result == 0:
+        if turn_result == -2:
+            return False, keras_feedback
         if turn_result == 1:
-            return game_won(player)
+            return game_won(kerasPlayer)
         if turn_result == -1:
             return game_draw()
 
-    return True
+    # opponent turn
+
+    if show_in_console:
+        set_up()
+
+    turn_result = players[1].turn()
+
+    if not turn_result == 0:
+        if turn_result == 1:
+            return game_won(players[1])
+        if turn_result == -1:
+            return game_draw()
+
+    return False, keras_feedback
 
 
 def game_won(player):
     print("Player", player.output(), "won!! Congratulations!")
-    return False
+    if player == players[0]:
+        return True, players[0].score * 10
+    else:
+        return True, - (players[1].score * 10)
 
 
 def game_draw():
@@ -53,7 +70,7 @@ def game_draw():
         return game_won(players[1])
 
     print("Game ended in a draw.")
-    return False
+    return True, 25
 
 
 def set_up():
