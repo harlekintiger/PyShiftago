@@ -1,2 +1,2 @@
 # PyShiftago
-Keras tensorflow AI for the game shiftago
+Tensorflow AI for the game shiftago (against playing random)
