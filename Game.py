@@ -78,3 +78,9 @@ def set_up():
         print(player.output())
     board.draw_board()
 
+
+def draw_game():
+    print(players[0].output())
+    print(players[1].output())
+    board.draw_board()
+    print()

@@ -213,3 +213,4 @@ def draw_board():
         for x in range(board_dimension):
             print(board[x][y], end=" ")
         print()
+
