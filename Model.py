@@ -6,7 +6,7 @@ import math
 
 import Game as game
 import Board as board
-import KerasPlayer as tensorPlayer
+import TensorPlayer as tensorPlayer
 import Library as library
 
 MAX_EPSILON = 1

@@ -37,4 +37,4 @@ def turn(turn_to_take):
 
 
 def output():
-    return "Color: {0}; Score: {1} - keras".format(color, score)
+    return "Color: {0}; Score: {1} - tensor".format(color, score)

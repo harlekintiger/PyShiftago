@@ -1,5 +1,5 @@
 import Board as board
-import KerasPlayer as kerasPlayer
+import TensorPlayer as tensorPlayer
 import RandomPlayer as randomPlayer
 
 points_to_win = 10
@@ -11,7 +11,7 @@ players = [None, None]
 def initialize(show_game_in_console = True):
     global players
     players = [
-        kerasPlayer,
+        tensorPlayer,
         randomPlayer
     ]
     for ind, play in enumerate(players, start=1):
@@ -24,18 +24,18 @@ def initialize(show_game_in_console = True):
 
 
 def compute_turn_loop(turn_to_make):
-    # keras turn
+    # tensor turn
 
     if show_in_console:
         set_up()
 
-    turn_result, keras_feedback = kerasPlayer.turn(turn_to_make)
+    turn_result, tensor_feedback = tensorPlayer.turn(turn_to_make)
 
     if not turn_result == 0:
         if turn_result == -2:
-            return False, keras_feedback
+            return False, tensor_feedback
         if turn_result == 1:
-            return game_won(kerasPlayer)
+            return game_won(tensorPlayer)
         if turn_result == -1:
             return game_draw()
 
@@ -52,7 +52,7 @@ def compute_turn_loop(turn_to_make):
         if turn_result == -1:
             return game_draw()
 
-    return False, keras_feedback
+    return False, tensor_feedback
 
 
 def game_won(player):

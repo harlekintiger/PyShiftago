@@ -22,3 +22,5 @@ while not exit_program:
 
 
 # Attention!! Run model for AI
+# To play player against random: in "Game" change "tenorPlayer" to "humanPlayer"
+# To player human against tensor: in "Game" change "randomPlayer" to "humanPlayer"
