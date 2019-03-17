@@ -177,7 +177,7 @@ class GameRunner:
 
     def _choose_action(self, state, random_only=False):
         list_of_legal_moves = board.get_list_of_legal_moves()
-        if random.random() < self._eps or random_only and False:
+        if random.random() < self._eps or random_only:
             while True:
                 random_move = random.randint(0, self._model.num_actions - 1)
                 if list_of_legal_moves[random_move] == 1:
